@@ -1,0 +1,10 @@
+# .dockerignore
+.venv/
+__pycache__/
+*.pyc
+.git/
+.github/
+mlruns/
+*.db
+*.html
+.pytest_cache/
