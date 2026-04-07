@@ -7,4 +7,3 @@ mlruns/
 *.db
 *.html
 .pytest_cache/
-*.pkl
