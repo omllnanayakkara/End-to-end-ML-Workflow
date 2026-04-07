@@ -11,6 +11,9 @@ try:
     print("Model loaded successfully!")
 except Exception as e:
     print(f"Error loading model: {e}")
+    with open("models/model.pkl", "rb") as f:
+        model = pickle.load(f)
+        print("Model loaded successfully!")
     raise
 
 with open("encoder.pkl", "rb") as f:
