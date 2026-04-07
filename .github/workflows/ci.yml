@@ -47,7 +47,7 @@ jobs:
               exit 0
             fi
             echo "Waiting for API to start..."
-            sleep 2
+            sleep 5
           done
 
           echo "Container failed to become healthy"
