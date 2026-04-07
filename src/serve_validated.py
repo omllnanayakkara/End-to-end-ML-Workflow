@@ -14,11 +14,13 @@ except Exception as e:
     with open("models/model.pkl", "rb") as f:
         model = pickle.load(f)
         print("Model loaded successfully!")
-    raise
 
-with open("encoder.pkl", "rb") as f:
-    encoder = pickle.load(f)
-print("Encoder loaded successfully!")
+try:
+    with open("./encoder.pkl", "rb") as f:
+        encoder = pickle.load(f)
+        print("Encoder loaded successfully!")
+except Exception as e:
+    print(f"Error loading encoder: {e}")
 
 
 app = FastAPI(
