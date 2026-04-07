@@ -5,22 +5,21 @@ import mlflow
 from src.data_validation import validate_transaction_data
 
 mlflow.set_tracking_uri("http://localhost:5000")
-
+isLocal = False
 try:
     model = mlflow.sklearn.load_model("models:/fraud-detection-model@champion")
     print("Model loaded successfully!")
-except Exception as e:
-    print(f"Error loading model: {e}")
-    with open("models/model.pkl", "rb") as f:
-        model = pickle.load(f)
-        print("Model loaded successfully!")
-
-try:
     with open("encoder.pkl", "rb") as f:
         encoder = pickle.load(f)
         print("Encoder loaded successfully!")
 except Exception as e:
-    print(f"Error loading encoder: {e}")
+    print(f"Error loading model: {e}")
+    print("Loading model from files...")
+    with open("models/model.pkl", "rb") as f:
+        model, encoder = pickle.load(f)
+        print("Model loaded successfully!")
+        isLocal = True
+
 
 
 app = FastAPI(
@@ -110,7 +109,7 @@ def predict(transaction: Transaction):
     }])
 
     prediction = model.predict(X)[0]
-    probability = model.predict_proba(X)[0][1]
+    probability = model.predict_proba(X)[0][1] if isLocal else 1
 
     return PredictionResponse(is_fraud=prediction, probability=round(float(probability), 4))
 
