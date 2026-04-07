@@ -3,7 +3,6 @@
 __pycache__/
 *.pyc
 .git/
-.github/
 mlruns/
 *.db
 *.html
